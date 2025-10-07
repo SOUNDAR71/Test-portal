@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
-import { loginUser } from "../../api/api"; 
-import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import { loginUser } from "../../api/api";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -18,16 +17,30 @@ const Login = () => {
     try {
       const res = await loginUser(form.email, form.password);
 
-      // Save user info in localStorage
-      localStorage.setItem("user", JSON.stringify(res));
+      // ✅ Check if response contains token
+      if (res && res.data && res.data.token) {
+        // Save JWT and user info in localStorage
+        localStorage.setItem("token", res.data.token);
+        localStorage.setItem(
+          "user",
+          JSON.stringify({
+            name: res.data.user?.name,
+            email: res.data.user?.email,
+            role: res.data.user?.role,
+          })
+        );
 
-      if(res.role == "admin"){
-        navigate("/admin");
-      }else{
+        // Debugging — view JWT in browser console
+        console.log("JWT Token:", res.data.token);
+
+        // ✅ Navigate to dashboard or MCQ page
         navigate("/mcq");
+      } else {
+        setError("Invalid response from server. Please try again.");
       }
     } catch (err) {
-      setError(err.response?.data?.error || "Invalid credentials");
+      console.error("Login Error:", err);
+      setError(err.response?.data?.message || "Invalid credentials");
     }
   };
 
@@ -37,7 +50,7 @@ const Login = () => {
 
   return (
     <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-50">
-      <div className="w-[400px] bg-white rounded-lg shadow-lg p-8">
+      <div className="w-[400px] bg-white rounded-lg shadow-lg p-8 fade-in">
         <h1 className="text-center font-bold text-2xl mb-4">Login</h1>
 
         {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
@@ -70,14 +83,14 @@ const Login = () => {
           <button
             type="submit"
             className="mt-2 bg-blue-600 text-white py-2 rounded-3xl hover:bg-blue-700"
-          > 
+          >
             Submit
           </button>
 
           <button
             type="button"
             onClick={handleCancel}
-            className="text-gray-500 py-2 rounded"
+            className="text-gray-500 py-2 rounded hover:underline"
           >
             Cancel
           </button>

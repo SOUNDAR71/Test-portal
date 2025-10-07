@@ -2,11 +2,16 @@ import React from "react";
 import { Navigate } from "react-router-dom";
 
 const PrivateRoute = ({ children }) => {
-  // Get user info from localStorage
-  const user = JSON.parse(localStorage.getItem("user"));
+  // Check for JWT token in localStorage
+  const token = localStorage.getItem("token"); // or use AuthContext
 
-  // If user exists, render the protected component, else redirect to login
-  return user ? children : <Navigate to="/login" replace />;
+  if (!token) {
+    // User is not logged in → redirect to login page
+    return <Navigate to="/login" replace />;
+  }
+
+  // User is logged in → allow access
+  return children;
 };
 
 export default PrivateRoute;

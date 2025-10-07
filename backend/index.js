@@ -4,6 +4,7 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { requireAuth } from "./middleware/authMiddleware.js";
 
 const app = express();
 app.use(cors());
@@ -15,7 +16,7 @@ const PORT = 5000;
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "Soundar@2005", 
+  password: "Soundar@2005",
   database: "test_portal"
 });
 
@@ -27,12 +28,17 @@ db.connect(err => {
   console.log("MySQL Connected...");
 });
 
+// JWT Secret Key
 const JWT_SECRET = "my_secret_key";
 
-//Register User
+// Example protected route
+app.get("/protected", requireAuth, (req, res) => {
+  res.json({ message: "You are logged in!", user: req.user });
+});
+
+// ==================== REGISTER ====================
 app.post("/register", (req, res) => {
   const { name, email, password } = req.body;
-
   if (!name || !email || !password) {
     return res.status(400).json({ error: "All fields are required" });
   }
@@ -53,13 +59,10 @@ app.post("/register", (req, res) => {
   });
 });
 
-//Login Route
+// ==================== LOGIN ====================
 app.post("/login", (req, res) => {
   const { email, password } = req.body;
-
-  if (!email || !password) {
-    return res.status(400).json({ error: "Email and password are required" });
-  }
+  if (!email || !password) return res.status(400).json({ error: "Email and password required" });
 
   db.query("SELECT * FROM users WHERE email = ?", [email], (err, results) => {
     if (err) return res.status(500).json({ error: "Database error" });
@@ -71,13 +74,13 @@ app.post("/login", (req, res) => {
       if (err) return res.status(500).json({ error: "Error checking password" });
       if (!match) return res.status(401).json({ error: "Invalid credentials" });
 
-      // Generate JWT token with role
-      const token = jwt.sign({ id: user.id, role: user.role }, JWT_SECRET, { expiresIn: "1h" });
+      // ✅ Generate JWT token
+      const token = jwt.sign({ id: user.id }, JWT_SECRET, { expiresIn: "1h" });
 
+      // ✅ Send JWT to frontend
       res.json({
         message: "Login successful",
         token,
-        role: user.role,
         name: user.name,
         email: user.email
       });
@@ -85,52 +88,7 @@ app.post("/login", (req, res) => {
   });
 });
 
-//Admin Protected Route
-app.get("/admin-data", (req, res) => {
-  const authHeader = req.headers.authorization;
-  if (!authHeader) return res.status(403).json({ error: "No token provided" });
-
-  const token = authHeader.split(" ")[1];
-  jwt.verify(token, JWT_SECRET, (err, decoded) => {
-    if (err) return res.status(401).json({ error: "Invalid token" });
-
-    if (decoded.role !== "admin") {
-      return res.status(403).json({ error: "Access denied, admin only" });
-    }
-
-    res.json({ message: "Welcome Admin! This is protected admin data." });
-  });
-});
-
-//Add Questions (Admin only)
-app.post("/api/questions", (req, res) => {
-  const { test_id, question_text, option_a, option_b, option_c, option_d, correct_option } = req.body;
-
-  if (!test_id || !question_text || !correct_option) {
-    return res.status(400).json({ error: "Missing required fields" });
-  }
-
-  const sql = `INSERT INTO questions 
-               (test_id, question_text, option_a, option_b, option_c, option_d, correct_option)
-               VALUES (?, ?, ?, ?, ?, ?, ?)`;
-
-  db.query(sql, [test_id, question_text, option_a, option_b, option_c, option_d, correct_option], (err, result) => {
-    if (err) return res.status(500).json({ error: err.sqlMessage });
-    res.json({ id: result.insertId, message: "Question added successfully" });
-  });
-});
-
-//Fetch Questions
-app.get("/api/questions", (req, res) => {
-  const sql = "SELECT * FROM questions";
-  db.query(sql, (err, results) => {
-    if (err) return res.status(500).json({ error: err.sqlMessage });
-    console.log("Data",results);
-    res.json(results);
-  });
-});
-
-// Start server
+// ==================== START SERVER ====================
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
