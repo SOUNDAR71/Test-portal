@@ -5,11 +5,11 @@ const Boady = () => {
   const navigate = useNavigate();
 
   const handleTakeTest = () => {
-    const token = localStorage.getItem("token"); // check if user is logged in
+    const token = localStorage.getItem("token"); 
     if (!token) {
-      navigate("/mcq"); // user logged in → go to MCQ page
+      navigate("/mcq"); 
     } else {
-      navigate("/login"); // not logged in → go to login page
+      navigate("/login"); 
     }
   };
 
