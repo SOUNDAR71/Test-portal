@@ -13,25 +13,25 @@ const Footer = () => {
             <h1 className="font-bold text-xl">Test Portal</h1>
           </div>
           <p className="text-gray-300">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Unde officia molestiae eveniet nam, debitis id nobis. Doloremque, commodi. Magnam, debitis!
+           Empowering learners worldwide with comprehensive online testing solutions. Take your skills to the next level with our advanced assessment platform.
           </p>
           <p>🦤 📧 📗 👜</p>
         </div>
 
 
-        <div className="flex flex-col gap-2 md:w-1/3">
+        {/* <div className="flex flex-col gap-2 md:w-1/3">
           <h2 className="font-bold text-lg">Quick Links</h2>
           <p>Home</p>
           <p>Tests</p>
           <p>Result</p>
           <p>About</p>
-        </div>
+        </div> */}
 
        
         <div className="flex flex-col gap-2 md:w-1/3">
           <h2 className="font-bold text-lg">Contact Info</h2>
           <p>support@testportal.com</p>
-          <p>+1(333) 123 456 567</p>
+          <p>+91 987654321</p>
           <p>123, Tiruppur</p>
           <p>24/7 Support Available</p>
         </div>

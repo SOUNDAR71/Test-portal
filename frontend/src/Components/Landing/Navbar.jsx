@@ -15,12 +15,7 @@ const Navbar = () => {
         <h1 className="text-black text-xl font-bold">Test Portal</h1>
       </div>
 
-      <ul className="hidden md:flex space-x-6">
-        <li><Link to="/" className="text-black hover:text-blue-400">Home</Link></li>
-        <li><Link to="/about" className="text-black hover:text-blue-400">About</Link></li>
-        <li><Link to="/test" className="text-black hover:text-blue-400">Test</Link></li>
-        <li><Link to="/results" className="text-black hover:text-blue-400">Results</Link></li>
-      </ul>
+      
 
       <div className="flex items-center gap-5">
         <Link to="/login" className="hover:text-blue-400">Login</Link>

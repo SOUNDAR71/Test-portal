@@ -17,7 +17,7 @@ const Login = () => {
     try {
       const res = await loginUser(form.email, form.password);
 
-      // ✅ Check if response contains token
+      //  Check if response contains token
       if (res && res.data && res.data.token) {
         // Save JWT and user info in localStorage
         localStorage.setItem("token", res.data.token);
@@ -33,7 +33,7 @@ const Login = () => {
         // Debugging — view JWT in browser console
         console.log("JWT Token:", res.data.token);
 
-        // ✅ Navigate to dashboard or MCQ page
+        //  Navigate to dashboard or MCQ page
         navigate("/mcq");
       } else {
         setError("Invalid response from server. Please try again.");

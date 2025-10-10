@@ -1,50 +1,52 @@
-import React from 'react'
+import React from 'react';
 
-const cont = () => {
+const Cont = () => {
   return (
-    <div className=" grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12  justify-items-center  gap-8  bg-gray-300">
-      <div className=" hover:-translate-y-3 bg-white w-[250px] h-[150px] rounded-xl shadow-lg flex flex-col items-center justify-center text-lg font-semibold p-4 ">
-        <div className='flex flex-col items-center'>
-          <diV className='bg-blue-500 w-[44px] h-[40px] flex items-center justify-center rounded'>
-            <span className='text-blue-600 text-2xl '>📝</span>
-          </diV>
-          
-          <p className='mt-1'>SmartTestCreation </p>
+    <div className="bg-gray-300 py-10 px-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center">
+        
+        {/* Card 1 */}
+        <div className="hover:-translate-y-2 transition transform bg-white w-full max-w-xs h-auto rounded-xl shadow-lg flex flex-col items-center justify-start p-6">
+          <div className="flex flex-col items-center">
+            <div className="bg-blue-500 w-12 h-12 flex items-center justify-center rounded mb-2">
+              <span className="text-2xl">📝</span>
+            </div>
+            <p className="mt-1 text-base md:text-lg font-semibold text-center">Smart Test Creation</p>
+          </div>
+          <div className="mt-2 text-xs sm:text-sm md:text-base text-gray-600 text-center">
+            Design custom MCQ tests with intelligent question randomization and automatic grading system.
+          </div>
         </div>
-        <div className='mt-2 text-sm  '>
-          <p>Lorem ipsum dolor sit.</p>
+
+        {/* Card 2 */}
+        <div className="hover:-translate-y-2 transition transform bg-white w-full max-w-xs h-auto rounded-xl shadow-lg flex flex-col items-center justify-start p-6">
+          <div className="flex flex-col items-center">
+            <div className="bg-blue-500 w-12 h-12 flex items-center justify-center rounded mb-2">
+              <span className="text-2xl">⏱️</span>
+            </div>
+            <p className="mt-1 text-base md:text-lg font-semibold text-center">Real-Time</p>
+          </div>
+          <div className="mt-2 text-xs sm:text-sm md:text-base text-gray-600 text-center">
+            Take timed tests with live progress tracking and automatic submission when time expires.
+          </div>
         </div>
-      </div>
-      <div className=" hover:-translate-y-3 bg-white w-[250px] h-[150px] rounded-xl shadow-lg flex items-center justify-center text-lg font-semibold">
-        <div className="bg-white w-[250px] h-[150px] rounded-xl shadow-lg flex flex-col items-center justify-center text-lg font-semibold p-4">
-        <div className='flex flex-col items-center'>
-          <diV className='bg-blue-500 w-[44px] h-[40px] flex items-center justify-center rounded'>
-            <span className='text-blue-600 text-2xl '>⏱️</span>
-          </diV>
-          
-          <p className='mt-1'>Real-Time</p>
+
+        {/* Card 3 */}
+        <div className="hover:-translate-y-2 transition transform bg-white w-full max-w-xs h-auto rounded-xl shadow-lg flex flex-col items-center justify-start p-6">
+          <div className="flex flex-col items-center">
+            <div className="bg-blue-500 w-12 h-12 flex items-center justify-center rounded mb-2">
+              <span className="text-2xl">📊</span>
+            </div>
+            <p className="mt-1 text-base md:text-lg font-semibold text-center">Advance Analytics</p>
+          </div>
+          <div className="mt-2 text-xs sm:text-sm md:text-base text-gray-600 text-center">
+            Get instant detailed results with performance insights and comprehensive question review.
+          </div>
         </div>
-        <div className='mt-2 text-sm  '>
-          <p>Lorem ipsum dolor sit.</p>
-        </div>
-      </div>
-      </div>
-      <div className=" hover:-translate-y-3 bg-white w-[250px] h-[150px] rounded-xl shadow-lg flex items-center justify-center text-lg font-semibold">
-        <div className="bg-white w-[250px] h-[150px] rounded-xl shadow-lg flex flex-col items-center justify-center text-lg font-semibold p-4">
-        <div className='flex flex-col items-center'>
-          <diV className='bg-blue-500 w-[44px] h-[40px] flex items-center justify-center rounded'>
-            <span className='text-blue-600 text-2xl '>📊</span>
-          </diV>
-          
-          <p className='mt-1'>Advance Analytics</p>
-        </div>
-        <div className='mt-2 text-sm  '>
-          <p>Lorem ipsum dolor sit.</p>
-        </div>
-      </div>
+
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default cont
+export default Cont;

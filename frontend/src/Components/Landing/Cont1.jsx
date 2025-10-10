@@ -4,10 +4,11 @@ const Cont1 = () => {
   return (
     <div>
     <div className=' flex flex-col items-center p-8   bg-gray-300'>
-        <div className='mt-2 text-center '>
-            <h1 className=' font-extrabold text-xl flex items-center mt-10'>Popular Test Categories</h1>
-            <span className='text-sm  ml-10' >Lorem ipsum dolor sit.</span>
+        <div className="mt-10 text-center">
+            <h1 className="font-extrabold text-xl">Popular Test Categories</h1>
+            <span className="text-sm block mt-2">Choose from our wide range of practice tests.</span>
         </div>
+
         <div className=' grid grid-cols-1 gap-12 sm:grid-cols-1 lg:grid-cols-4 gap-12 mt-[90px] flex justify-center gap-6'>
            
             <div className='   bg-orange-500  w-[250px] h-[150px] rounded-xl '>
@@ -35,19 +36,19 @@ const Cont1 = () => {
         </div>
         <div className="mt-10 w-full max-w-[1000px] bg-gray-100 text-black flex flex-col sm:flex-row justify-around items-center rounded-lg shadow p-4">           
              <div className='text-center m-2'>
-                <h1 className='font-bold text-xl'>1000+</h1>
+                <h1 className='font-bold text-xl text-blue-600'>1000+</h1>
                 <p className='text-sm'>Tests Taken</p>
             </div>
             <div className='text-center'>
-                <h1 className='font-bold text-xl '>5,000+</h1>
+                <h1 className='font-bold text-xl text-green-600 '>5,000+</h1>
                 <p className='text-sm'>Active Users</p>
             </div>
             <div className='text-center'>
-                <h1 className='font-bold text-xl '>500+</h1>
+                <h1 className='font-bold text-xl text-blue-400'>500+</h1>
                 <p className='text-sm'>Test Categores</p>
             </div>
             <div className='text-center'>
-                <h1 className='font-bold text-xl sm:text-2xl lg:text-3xl'>98%</h1>
+                <h1 className='font-bold text-xl sm:text-2xl lg:text-3xl text-orange-500'>98%</h1>
                 <p className='text-sm'>Success Rate</p>
             </div>
         </div>

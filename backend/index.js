@@ -5,7 +5,6 @@ import bodyParser from "body-parser";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { requireAuth } from "./middleware/authMiddleware.js";
-
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
@@ -16,7 +15,7 @@ const PORT = 5000;
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "Soundar@2005",
+  password: "Soundar@2005", 
   database: "test_portal"
 });
 
@@ -28,17 +27,27 @@ db.connect(err => {
   console.log("MySQL Connected...");
 });
 
-// JWT Secret Key
+
 const JWT_SECRET = "my_secret_key";
 
-// Example protected route
-app.get("/protected", requireAuth, (req, res) => {
+// Protected route
+app.get("/mcq", requireAuth, (req, res) => {
   res.json({ message: "You are logged in!", user: req.user });
 });
 
-// ==================== REGISTER ====================
+// // Protected questions route
+// app.get("/api/questions", requireAuth, (req, res) => {
+//   const sql = "SELECT * FROM questions";
+//   db.query(sql, (err, results) => {
+//     if (err) return res.status(500).json({ error: err.sqlMessage });
+//     res.json(results);
+//   });
+// });
+
+//Register User
 app.post("/register", (req, res) => {
   const { name, email, password } = req.body;
+
   if (!name || !email || !password) {
     return res.status(400).json({ error: "All fields are required" });
   }
@@ -59,10 +68,13 @@ app.post("/register", (req, res) => {
   });
 });
 
-// ==================== LOGIN ====================
+//Login Route
 app.post("/login", (req, res) => {
   const { email, password } = req.body;
-  if (!email || !password) return res.status(400).json({ error: "Email and password required" });
+
+  if (!email || !password) {
+    return res.status(400).json({ error: "Email and password are required" });
+  }
 
   db.query("SELECT * FROM users WHERE email = ?", [email], (err, results) => {
     if (err) return res.status(500).json({ error: "Database error" });
@@ -74,13 +86,13 @@ app.post("/login", (req, res) => {
       if (err) return res.status(500).json({ error: "Error checking password" });
       if (!match) return res.status(401).json({ error: "Invalid credentials" });
 
-      // ✅ Generate JWT token
-      const token = jwt.sign({ id: user.id }, JWT_SECRET, { expiresIn: "1h" });
+      // Generate JWT token with role
+      const token = jwt.sign({ id: user.id, role: user.role }, JWT_SECRET, { expiresIn: "1h" });
 
-      // ✅ Send JWT to frontend
       res.json({
         message: "Login successful",
         token,
+        role: user.role,
         name: user.name,
         email: user.email
       });
@@ -88,7 +100,21 @@ app.post("/login", (req, res) => {
   });
 });
 
-// ==================== START SERVER ====================
+
+
+
+
+//Fetch Questions
+app.get("/api/questions", (req, res) => {
+  const sql = "SELECT * FROM questions";
+  db.query(sql, (err, results) => {
+    if (err) return res.status(500).json({ error: err.sqlMessage });
+    console.log("Data",results);
+    res.json(results);
+  });
+});
+
+// Start server
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });

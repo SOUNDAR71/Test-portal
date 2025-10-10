@@ -3,8 +3,6 @@ import { WelcomeScreen, FinishedScreen } from "./Screen";
 import { fetchQuestions } from "./Questions";
 import QuizScreen from "./QuizScreen";
 import { useNavigate } from "react-router-dom";
-import useExamSecurity from "../Security/useExamSecurity";
-import ExamCamera from "../Security/ExamCamera";
 
 const Test = () => {
   const navigate = useNavigate();
@@ -13,77 +11,74 @@ const Test = () => {
   const [currentQ, setCurrentQ] = useState(0);
   const [finished, setFinished] = useState(false);
   const [started, setStarted] = useState(false);
-  const [violationCount, setViolationCount] = useState(0);
+  const [timer, setTimer] = useState(60); // 1 min per question
 
   // Fetch questions from backend
   useEffect(() => {
     fetchQuestions().then((data) => setQuestions(data));
   }, []);
 
-  // Function to send camera snapshots to backend
-  const handleSnapshot = async (formData) => {
-    try {
-      await fetch("/api/save-snapshot", {
-        method: "POST",
-        body: formData,
-      });
-    } catch (err) {
-      console.error("Failed to send snapshot", err);
-    }
-  };
-
-  // Continuous fullscreen check every second
+  // Fullscreen exit detection
   useEffect(() => {
     if (!started || finished) return;
 
-    const interval = setInterval(() => {
+    const handleFullscreenChange = () => {
       if (!document.fullscreenElement) {
         alert("You exited fullscreen! Test will be submitted.");
         setFinished(true);
       }
+    };
+
+    document.addEventListener("fullscreenchange", handleFullscreenChange);
+
+    return () => {
+      document.removeEventListener("fullscreenchange", handleFullscreenChange);
+    };
+  }, [started, finished]);
+
+  // Tab switch detection
+  useEffect(() => {
+    if (!started || finished) return;
+
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        alert("You switched tabs! Test will be submitted.");
+        setFinished(true);
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, [started, finished]);
+
+  // Timer for each question
+  useEffect(() => {
+    if (!started || finished) return;
+
+    setTimer(60); // Reset timer for new question
+
+    const interval = setInterval(() => {
+      setTimer((prev) => {
+        if (prev <= 1) {
+          handleNext();
+          return 60;
+        }
+        return prev - 1;
+      });
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [started, finished]);
-
-  // Exam security hook (tab switch, etc.)
-  useExamSecurity((message) => {
-    if (started && !finished) {
-      setViolationCount((prev) => {
-        const newCount = prev + 1;
-
-        // Capture snapshot immediately on violation
-        const video = document.querySelector("video");
-        if (video) {
-          const canvas = document.createElement("canvas");
-          canvas.width = video.videoWidth;
-          canvas.height = video.videoHeight;
-          canvas.getContext("2d").drawImage(video, 0, 0);
-          canvas.toBlob((blob) => {
-            const formData = new FormData();
-            formData.append("snapshot", blob, "violation.jpg");
-            handleSnapshot(formData);
-          }, "image/jpeg");
-        }
-
-        if (newCount >= 3) {
-          alert(`3 violations detected. Test will be submitted.`);
-          setFinished(true);
-        } else {
-          alert(`Violation detected: ${message}`);
-        }
-
-        return newCount;
-      });
-    }
-  });
+  }, [currentQ, started, finished]);
 
   // Handle option select
   const handleChange = (qId, value) => {
     setAnswers((prev) => ({ ...prev, [qId]: value }));
   };
 
-  // Next button
+  // Next question
   const handleNext = () => {
     if (currentQ < questions.length - 1) {
       setCurrentQ(currentQ + 1);
@@ -103,7 +98,9 @@ const Test = () => {
 
   // Start / Finished Screens
   if (!started) return <WelcomeScreen setStarted={setStarted} />;
-  if (finished)
+  if (finished) {
+    // Auto-redirect to home after 3 seconds
+    setTimeout(() => navigate("/"), 3000);
     return (
       <FinishedScreen
         score={calculateScore()}
@@ -111,23 +108,15 @@ const Test = () => {
         navigate={navigate}
       />
     );
+  }
 
   const q = questions[currentQ];
 
   return (
-    <>
-    {/* Camera Security Component */}
-    <ExamCamera onViolation={(message) => {
-    setViolationCount(prev => {
-    const newCount = prev + 1;
-    alert(`Warning ${newCount}: ${message}`);
-    if (newCount >= 3) setFinished(true); // auto submit after 3 violations
-    return newCount;
-  });
-}} />
-
-
-      {/* Quiz Component */}
+    <div>
+      <div className="text-center font-bold text-lg mb-2">
+        Time left: {timer}s
+      </div>
       <QuizScreen
         q={q}
         currentQ={currentQ}
@@ -136,9 +125,9 @@ const Test = () => {
         handleChange={handleChange}
         handleNext={handleNext}
         setCurrentQ={setCurrentQ}
-        setFinished={setFinished} 
+        setFinished={setFinished}
       />
-    </>
+    </div>
   );
 };
 
