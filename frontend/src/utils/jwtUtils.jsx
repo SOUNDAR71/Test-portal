@@ -1,4 +1,3 @@
-// utils/decodeJWT.js
 export const decodeJWT = (token) => {
   if (!token) return null;
 
