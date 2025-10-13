@@ -5,7 +5,7 @@ import "./App.css";
 // Landing Page Components
 import Navbar from "./Components/landing/Navbar";
 import Mainb from "./Components/landing/Mainb";
-import Cont from "./Components/landing/Cont";
+import Cont from "./Components/landing/cont.jsx";
 import Cont1 from "./Components/landing/Cont1";
 import Footer from "./Components/landing/Footer";
 
