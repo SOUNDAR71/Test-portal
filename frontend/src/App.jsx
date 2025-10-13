@@ -3,11 +3,11 @@ import { Routes, Route } from "react-router-dom";
 import "./App.css";
 
 // Landing Page Components
-import Navbar from "./Components/landing/Navbar.jsx";
-import Mainb from "./Components/landing/Mainb.jsx";
-import Cont from "./Components/landing/cont.jsx";    // lowercase file
-import Cont1 from "./Components/landing/Cont1.jsx";  // uppercase C
-import Footer from "./Components/landing/Footer.jsx";
+import Navbar from "./Components/lpage/Navbar.jsx";
+import Mainb from "./Components/lpage/Mainb.jsx";
+import Cont from "./Components/lpage/Cont.jsx";
+import Cont1 from "./Components/lpage/Cont1.jsx";
+import Footer from "./Components/lpage/Footer.jsx";
 
 // Auth Components
 import Register from "./Components/Login/Register.jsx";
