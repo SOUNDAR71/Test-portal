@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:5000";
+const API_URL = "https://test-portal-backend-6nxwpto9s-soundarkumars-projects-f7cbbd0e.vercel.app";
 
 // ==================== LOGIN ====================
 export const loginUser = async (email, password) => {
