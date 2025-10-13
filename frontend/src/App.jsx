@@ -5,8 +5,8 @@ import "./App.css";
 // Landing Page Components
 import Navbar from "./Components/landing/Navbar";
 import Mainb from "./Components/landing/Mainb";
-import Cont from "./Components/landing/cont.jsx";
-import Cont1 from "./Components/landing/Cont1";
+import Cont from "./Components/landing/cont.jsx";    // lowercase file
+import Cont1 from "./Components/landing/Cont1.jsx";  // uppercase C
 import Footer from "./Components/landing/Footer";
 
 // Auth Components
@@ -64,6 +64,5 @@ function App() {
     </div>
   );
 }
-
 
 export default App;
