@@ -17,7 +17,7 @@ const Boady = () => {
     <div className="bg-gray-300 mt-16 shadow-lg flex flex-col items-center p-6">
       <div className="bg-blue-600 mt-16 w-full max-w-[900px] h-[300px] flex flex-col items-center justify-center text-3xl md:text-5xl font-extrabold text-white rounded-xl p-6">
         <div className="mb-6 text-center">
-          Welcome to <span className="text-yellow-200 font-extrabold">TestPortal</span>
+          Welcome To <span className="text-yellow-200 font-extrabold">TestPortal</span>
         </div>
 
         <div className="flex flex-wrap gap-4 justify-center">
