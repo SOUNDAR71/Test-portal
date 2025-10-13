@@ -3,11 +3,11 @@ import { Routes, Route } from "react-router-dom";
 import "./App.css";
 
 // Landing Page Components
-import Navbar from "./Components/Landing/Navbar";
-import Mainb from "./Components/Landing/Mainb";
-import Cont from "./Components/Landing/Cont";
-import Cont1 from "./Components/Landing/Cont1";
-import Footer from "./Components/Landing/Footer";
+import Navbar from "./Components/landing/Navbar";
+import Mainb from "./Components/landing/Mainb";
+import Cont from "./Components/landing/Cont";
+import Cont1 from "./Components/landing/Cont1";
+import Footer from "./Components/landing/Footer";
 
 // Auth Components
 import Register from "./Components/Login/Register";

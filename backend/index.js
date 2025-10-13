@@ -5,18 +5,20 @@ import bodyParser from "body-parser";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { requireAuth } from "./middleware/authMiddleware.js";
+import dotenv from "dotenv";
+dotenv.config();
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
 // MySQL connection
 const db = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "Soundar@2005", 
-  database: "test_portal"
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME
 });
 
 db.connect(err => {
@@ -35,14 +37,7 @@ app.get("/mcq", requireAuth, (req, res) => {
   res.json({ message: "You are logged in!", user: req.user });
 });
 
-// // Protected questions route
-// app.get("/api/questions", requireAuth, (req, res) => {
-//   const sql = "SELECT * FROM questions";
-//   db.query(sql, (err, results) => {
-//     if (err) return res.status(500).json({ error: err.sqlMessage });
-//     res.json(results);
-//   });
-// });
+
 
 //Register User
 app.post("/register", (req, res) => {
