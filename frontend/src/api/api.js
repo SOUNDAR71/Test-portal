@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://test-portal-backend-csmh1dx7l-soundarkumars-projects-f7cbbd0e.vercel.app";
+const API_URL = "https://test-portal-1.onrender.com/";
 
 // ==================== LOGIN ====================
 export const loginUser = async (email, password) => {
