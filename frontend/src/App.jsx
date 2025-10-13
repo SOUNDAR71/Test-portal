@@ -3,22 +3,22 @@ import { Routes, Route } from "react-router-dom";
 import "./App.css";
 
 // Landing Page Components
-import Navbar from "./Components/landing/Navbar";
-import Mainb from "./Components/landing/Mainb";
+import Navbar from "./Components/landing/Navbar.jsx";
+import Mainb from "./Components/landing/Mainb.jsx";
 import Cont from "./Components/landing/cont.jsx";    // lowercase file
 import Cont1 from "./Components/landing/Cont1.jsx";  // uppercase C
-import Footer from "./Components/landing/Footer";
+import Footer from "./Components/landing/Footer.jsx";
 
 // Auth Components
-import Register from "./Components/Login/Register";
-import Login from "./Components/Login/Login";
+import Register from "./Components/Login/Register.jsx";
+import Login from "./Components/Login/Login.jsx";
 
 // Test Components
-import MCQ from "./Components/Test/MCQ";
-import Test from "./Components/Test/Test";
+import MCQ from "./Components/Test/MCQ.jsx";
+import Test from "./Components/Test/Test.jsx";
 
 // Security
-import PrivateRoute from "./Components/Security/PrivateRoute";
+import PrivateRoute from "./Components/Security/PrivateRoute.jsx";
 
 function App() {
   return (
