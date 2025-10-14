@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://test-portal-1.onrender.com/";
+const API_URL = "https://test-portal-1.onrender.com";
 
 // ==================== LOGIN ====================
 export const loginUser = async (email, password) => {
