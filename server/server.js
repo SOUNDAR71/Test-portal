@@ -6,7 +6,6 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import { requireAuth } from "./middleware/authMiddleware.js";
-import fs from "fs";
 
 dotenv.config();
 
@@ -42,20 +41,16 @@ const db = mysql.createConnection({
   database: process.env.DB_NAME,
   port: process.env.DB_PORT || 3306,
   ssl: {
-<<<<<<< HEAD
-    ca: fs.readFileSync("./clevercloud-ca-cert.pem")
-=======
     rejectUnauthorized: false, // Accept self-signed certificates (Clever Cloud)
->>>>>>> 35fbde9
   },
 });
 
 db.connect((err) => {
   if (err) {
-    console.error(" Database connection failed:", err);
+    console.error("Database connection failed:", err);
     process.exit(1);
   }
-  console.log(" MySQL Connected...");
+  console.log("MySQL Connected...");
 });
 
 // ------------------ JWT SECRET ------------------
@@ -85,11 +80,7 @@ app.post("/register", (req, res) => {
       "INSERT INTO users (name, email, password, role) VALUES (?, ?, ?, 'user')";
     db.query(sql, [name, email, hashedPassword], (err, result) => {
       if (err) {
-<<<<<<< HEAD
-        console.error("SQL Error:", err); // Log full SQL error
-=======
         console.error("SQL Error:", err);
->>>>>>> 35fbde9
         if (err.code === "ER_DUP_ENTRY") {
           return res.status(400).json({ error: "Email already exists" });
         }
@@ -146,16 +137,12 @@ app.get("/api/questions", (req, res) => {
       console.error("SQL Error:", err);
       return res.status(500).json({ error: err.sqlMessage });
     }
-<<<<<<< HEAD
     console.log("Questions fetched:", results.length);
-=======
-    console.log(" Questions fetched:", results.length);
->>>>>>> 35fbde9
     res.json(results);
   });
 });
 
 // ------------------ START SERVER ------------------
 app.listen(PORT, () => {
-  console.log(` Server running on port ${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
