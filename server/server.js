@@ -42,7 +42,11 @@ const db = mysql.createConnection({
   database: process.env.DB_NAME,
   port: process.env.DB_PORT || 3306,
   ssl: {
+<<<<<<< HEAD
     ca: fs.readFileSync("./clevercloud-ca-cert.pem")
+=======
+    rejectUnauthorized: false, // Accept self-signed certificates (Clever Cloud)
+>>>>>>> 35fbde9
   },
 });
 
@@ -81,7 +85,11 @@ app.post("/register", (req, res) => {
       "INSERT INTO users (name, email, password, role) VALUES (?, ?, ?, 'user')";
     db.query(sql, [name, email, hashedPassword], (err, result) => {
       if (err) {
+<<<<<<< HEAD
         console.error("SQL Error:", err); // Log full SQL error
+=======
+        console.error("SQL Error:", err);
+>>>>>>> 35fbde9
         if (err.code === "ER_DUP_ENTRY") {
           return res.status(400).json({ error: "Email already exists" });
         }
@@ -138,7 +146,11 @@ app.get("/api/questions", (req, res) => {
       console.error("SQL Error:", err);
       return res.status(500).json({ error: err.sqlMessage });
     }
+<<<<<<< HEAD
     console.log("Questions fetched:", results.length);
+=======
+    console.log(" Questions fetched:", results.length);
+>>>>>>> 35fbde9
     res.json(results);
   });
 });
