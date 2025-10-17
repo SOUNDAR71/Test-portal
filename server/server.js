@@ -47,7 +47,7 @@ db.connect((err) => {
     console.error("Database connection failed:", err);
     process.exit(1);
   }
-  console.log("✅ MySQL Connected...");
+  console.log("MySQL Connected...");
 });
 
 // ------------------ JWT SECRET ------------------
@@ -124,18 +124,18 @@ app.get("/api/questions", (req, res) => {
   const sql = "SELECT * FROM questions";
   db.query(sql, (err, results) => {
     if (err) return res.status(500).json({ error: err.sqlMessage });
-    console.log("📘 Questions fetched:", results.length);
+    console.log(" Questions fetched:", results.length);
     res.json(results);
   });
 });
 
 // ------------------ HEALTH CHECK ------------------
 app.get("/", (req, res) => {
-  res.send("✅ Test Portal Backend Running Successfully!");
+  res.send(" Test Portal Backend Running Successfully!");
 });
 
 // ------------------ START SERVER ------------------
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`🚀 Server running on port ${PORT}`);
+  console.log(` Server running on port ${PORT}`);
 });
