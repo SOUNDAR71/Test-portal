@@ -10,7 +10,7 @@ import { requireAuth } from "./middleware/authMiddleware.js";
 dotenv.config();
 
 const app = express();
-const PORT = process.env.SERVER_PORT || 5000;
+const PORT = process.env.PORT || 5000; // Use Render's PORT environment variable
 
 // ------------------ CORS CONFIGURATION ------------------
 const allowedOrigins = [process.env.FRONTEND_URL];
