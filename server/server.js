@@ -11,15 +11,20 @@ dotenv.config();
 
 const app = express();
 
-// Proper CORS setup for Vercel frontend
-const allowedOrigins = [process.env.FRONTEND_URL];
+// CORS configuration
+const allowedOrigins = [
+  process.env.FRONTEND_URL, // from your .env
+  "http://localhost:3000" // for local development
+];
 
 app.use(
   cors({
     origin: function (origin, callback) {
+      // Allow server-to-server or local requests without origin
       if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
+        console.log("Blocked by CORS:", origin);
         callback(new Error("Not allowed by CORS"));
       }
     },
@@ -30,6 +35,7 @@ app.use(
 
 app.use(bodyParser.json());
 
+// Correct Port for Backend (use 5000, NOT 3306)
 const PORT = process.env.PORT || 5000;
 
 // MySQL connection
@@ -50,12 +56,12 @@ db.connect((err) => {
 
 const JWT_SECRET = process.env.JWT_SECRET || "my_secret_key";
 
-//Protected route
+// Protected route
 app.get("/mcq", requireAuth, (req, res) => {
   res.json({ message: "You are logged in!", user: req.user });
 });
 
-//Register User
+// Register user
 app.post("/register", (req, res) => {
   const { name, email, password } = req.body;
 
@@ -80,7 +86,7 @@ app.post("/register", (req, res) => {
   });
 });
 
-// Login Route
+//  Login route
 app.post("/login", (req, res) => {
   const { email, password } = req.body;
 
@@ -102,7 +108,7 @@ app.post("/login", (req, res) => {
       const token = jwt.sign(
         { id: user.id, role: user.role },
         JWT_SECRET,
-        { expiresIn: "1h" }
+        { expiresIn: process.env.JWT_EXPIRES_IN || "1d" }
       );
 
       res.json({
@@ -116,22 +122,22 @@ app.post("/login", (req, res) => {
   });
 });
 
-// Fetch Questions
+// Fetch questions
 app.get("/api/questions", (req, res) => {
   const sql = "SELECT * FROM questions";
   db.query(sql, (err, results) => {
     if (err) return res.status(500).json({ error: err.sqlMessage });
-    console.log(" Questions fetched:", results.length);
+    console.log("📘 Questions fetched:", results.length);
     res.json(results);
   });
 });
 
-// Default route for health check
+// Default route (for Render health check)
 app.get("/", (req, res) => {
   res.send(" Test Portal Backend Running Successfully!");
 });
 
-//  Start server
+// Start server
 app.listen(PORT, () => {
   console.log(` Server running on port ${PORT}`);
 });
