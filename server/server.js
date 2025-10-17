@@ -6,6 +6,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import { requireAuth } from "./middleware/authMiddleware.js";
+import fs from "fs";
 
 dotenv.config();
 
@@ -41,7 +42,7 @@ const db = mysql.createConnection({
   database: process.env.DB_NAME,
   port: process.env.DB_PORT || 3306,
   ssl: {
-    rejectUnauthorized: true, // Clever Cloud often requires SSL
+    ca: fs.readFileSync("./clevercloud-ca-cert.pem")
   },
 });
 
