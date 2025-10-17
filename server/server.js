@@ -13,8 +13,7 @@ const app = express();
 
 // CORS configuration
 const allowedOrigins = [
-  "https://test-portal-xi.vercel.app",
-  "http://localhost:3000",
+  "https://test-portal-xi.vercel.app"
 ];
 app.use(
   cors({
