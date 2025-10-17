@@ -13,7 +13,7 @@ const app = express();
 
 // ------------------ CORS CONFIGURATION ------------------
 const allowedOrigins = [
-  "https://test-portal-xi.vercel.app" // Frontend URL
+  "https://test-portal-65nknck8x-soundarkumars-projects-f7cbbd0e.vercel.app" // Frontend URL
 ];
 
 app.use(
