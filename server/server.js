@@ -13,10 +13,9 @@ const app = express();
 
 // CORS configuration
 const allowedOrigins = [
-  process.env.FRONTEND_URL, // from your .env
-  "http://localhost:3000" // for local development
+  "https://test-portal-xi.vercel.app",
+  "http://localhost:3000",
 ];
-
 app.use(
   cors({
     origin: function (origin, callback) {
