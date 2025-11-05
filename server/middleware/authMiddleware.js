@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 
-const JWT_SECRET = "my_secret_key"; // must match your backend key
+const JWT_SECRET = process.env.JWT_SECRET || "my_secret_key";
 
 export function requireAuth(req, res, next) {
   const authHeader = req.headers.authorization; // expects "Bearer <token>"
@@ -13,8 +13,8 @@ export function requireAuth(req, res, next) {
 
   try {
     const decoded = jwt.verify(token, JWT_SECRET);
-    req.user = decoded; // attach user info to request
-    next(); // allow access to protected route
+    req.user = decoded;
+    next(); // proceed to the route
   } catch (err) {
     return res.status(401).json({ error: "Invalid or expired token" });
   }

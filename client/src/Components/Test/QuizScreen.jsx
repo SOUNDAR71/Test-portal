@@ -16,31 +16,27 @@ export default function QuizScreen({
       <div className="w-full max-w-[1200px] min-h-[600px] p-6 bg-white rounded-lg shadow">
         {/* Question text */}
         <p className="font-semibold mt-10 mb-6 text-lg">
-          {currentQ + 1}. {q.question_text}
+          {currentQ + 1}. {q.question}
         </p>
 
         {/* Options */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-1 gap-10 mt-10">
-          {["A", "B", "C", "D"].map((opt) => (
+          {q.options.map((opt, index) => (
             <label
-              key={opt}
+              key={index}
               className={`p-4 border rounded-lg cursor-pointer transition-all duration-200 
-              ${
-                answers[q.id] === opt
-                  ? "border-blue-600 bg-blue-100"
-                  : "border-gray-300 hover:bg-gray-50"
-              }`}
+              ${answers[q._id] === opt ? "border-blue-600 bg-blue-100" : "border-gray-300 hover:bg-gray-50"}`}
             >
               <input
                 type="radio"
-                name={`q${q.id}`}
+                name={`q${q._id}`}
                 value={opt}
-                checked={answers[q.id] === opt}
-                onChange={() => handleChange(q.id, opt)}
+                checked={answers[q._id] === opt}
+                onChange={() => handleChange(q._id, opt)}
                 className="hidden"
               />
               <span className="font-medium">
-                {opt}) {q[`option_${opt.toLowerCase()}`]}
+                {String.fromCharCode(65 + index)}) {opt}
               </span>
             </label>
           ))}
@@ -59,7 +55,7 @@ export default function QuizScreen({
           <button
             onClick={handleNext}
             className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 disabled:bg-gray-400"
-            disabled={!answers[q.id]}
+            disabled={!answers[q._id]}
           >
             {currentQ === questions.length - 1 ? "Finish" : "Next"}
           </button>

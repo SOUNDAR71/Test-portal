@@ -15,10 +15,13 @@ const Test = () => {
 
   // Fetch questions from backend
   useEffect(() => {
-    fetchQuestions().then((data) => setQuestions(data));
+    fetchQuestions().then((data) => {
+      console.log(" Questions fetched from backend:", data);
+      setQuestions(data);
+    });
   }, []);
 
-  // Fullscreen exit detection
+  // Detect exit from fullscreen
   useEffect(() => {
     if (!started || finished) return;
 
@@ -30,13 +33,12 @@ const Test = () => {
     };
 
     document.addEventListener("fullscreenchange", handleFullscreenChange);
-
     return () => {
       document.removeEventListener("fullscreenchange", handleFullscreenChange);
     };
   }, [started, finished]);
 
-  // Tab switch detection
+  // Detect tab switch
   useEffect(() => {
     if (!started || finished) return;
 
@@ -48,18 +50,16 @@ const Test = () => {
     };
 
     document.addEventListener("visibilitychange", handleVisibilityChange);
-
     return () => {
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
   }, [started, finished]);
 
-  // Timer for each question
+  // Timer logic
   useEffect(() => {
     if (!started || finished) return;
 
-    setTimer(60); // Reset timer for new question
-
+    setTimer(60); // reset timer for each question
     const interval = setInterval(() => {
       setTimer((prev) => {
         if (prev <= 1) {
@@ -73,7 +73,7 @@ const Test = () => {
     return () => clearInterval(interval);
   }, [currentQ, started, finished]);
 
-  // Handle option select
+  // Handle answer selection
   const handleChange = (qId, value) => {
     setAnswers((prev) => ({ ...prev, [qId]: value }));
   };
@@ -81,10 +81,10 @@ const Test = () => {
   // Next question
   const handleNext = () => {
     if (currentQ < questions.length - 1) {
-      setCurrentQ(currentQ + 1);
+      setCurrentQ((prev) => prev + 1);
     } else {
       setFinished(true);
-    }
+    }a
   };
 
   // Calculate score
@@ -96,11 +96,17 @@ const Test = () => {
     return score;
   };
 
-  // Start / Finished Screens
+  // Redirect after finish (run only once)
+  useEffect(() => {
+    if (finished) {
+      const timeout = setTimeout(() => navigate("/"), 3000);
+      return () => clearTimeout(timeout);
+    }
+  }, [finished, navigate]);
+
+  // Screens
   if (!started) return <WelcomeScreen setStarted={setStarted} />;
-  if (finished) {
-    // Auto-redirect to home after 3 seconds
-    setTimeout(() => navigate("/"), 3000);
+  if (finished)
     return (
       <FinishedScreen
         score={calculateScore()}
@@ -108,9 +114,9 @@ const Test = () => {
         navigate={navigate}
       />
     );
-  }
 
   const q = questions[currentQ];
+  if (!q) return <div>Loading...</div>;
 
   return (
     <div>

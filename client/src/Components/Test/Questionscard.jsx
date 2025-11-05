@@ -6,9 +6,9 @@ export default function QuestionCard({ question, onAnswer }) {
         <label key={i}>
           <input
             type="radio"
-            name={question.id}
+            name={question._id}
             value={opt}
-            onChange={() => onAnswer(question.id, opt)}
+            onChange={() => onAnswer(question._id, opt)}
           />
           {opt}
         </label>
