@@ -3,7 +3,7 @@ import { WelcomeScreen, FinishedScreen } from "./Screen";
 import { fetchQuestions } from "./Questions";
 import QuizScreen from "./QuizScreen";
 import { useNavigate } from "react-router-dom";
-import {CalcutateScore} from "./CalcutateScore";
+import { CalcutateScore } from "./CalcutateScore";
 
 const Test = () => {
   const navigate = useNavigate();
@@ -102,7 +102,7 @@ const Test = () => {
   if (finished)
     return (
       <FinishedScreen
-        score={CalcutateScore()}
+        score={CalcutateScore(questions, answers)}
         total={questions.length}
         navigate={navigate}
       />

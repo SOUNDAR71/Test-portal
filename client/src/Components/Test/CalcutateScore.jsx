@@ -1,19 +1,10 @@
-const calculateScore = () => {
+export const CalcutateScore = (questions, answers) => {
   let score = 0;
 
-  questions.forEach((q, i) => {
+  questions.forEach((q) => {
     const key = q.id || q._id;
-    const correct = q.correct_option;
-    const selected = answers[key];
-
-    if (selected === correct) {
-      console.log(" Correct");
-      score++;
-    } else {
-      console.log(" Wrong");
-    }
+    if (answers[key] === q.correct_option) score++;
   });
 
-  console.log(" Final Score:", score);
   return score;
 };
