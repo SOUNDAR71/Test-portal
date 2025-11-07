@@ -58,9 +58,13 @@ const Test = () => {
     const interval = setInterval(() => {
       setTimer((prevTime) => {
         if (prevTime <= 1) {
-          setAutoSkipped(true); 
-          handleNext(); 
-          return 60; 
+          setAutoSkipped(true);   // record auto skip
+          if (currentQ < questions.length - 1) {
+            setCurrentQ((prev) => prev + 1);
+          } else {
+              setFinished(true);
+            }
+          return 60;
         }
         return prevTime - 1;
       });
@@ -76,13 +80,14 @@ const Test = () => {
 
   // Next question logic
   const handleNext = () => {
-    setAutoSkipped(false);
-    if (currentQ < questions.length - 1) {
-      setCurrentQ((prev) => prev + 1);
-    } else {
-      setFinished(true);
-    }
-  };
+  setAutoSkipped(false);
+  if (currentQ < questions.length - 1) {
+    setCurrentQ((prev) => prev + 1);
+  } else {
+    setFinished(true);
+  }
+};
+
 
   // Calculate score
   const calculateScore = () => {

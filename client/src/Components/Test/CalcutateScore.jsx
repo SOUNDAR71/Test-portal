@@ -10,11 +10,6 @@ const calculateScore = () => {
     const correct = q.correct_option;
     const selected = answers[key];
 
-    console.log(`Q${i + 1}:`, q.question);
-    console.log("   Key Used:", key);
-    console.log("   Correct:", correct);
-    console.log("   Selected:", selected);
-
     if (selected === correct) {
       console.log(" Correct");
       score++;
