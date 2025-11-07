@@ -17,7 +17,7 @@ const JWT_SECRET = process.env.JWT_SECRET;
 
 // ------------------ MIDDLEWARE ------------------
 app.use(cors({
-  origin: MONGO_URI,  
+  origin: FRONTEND_URL,  
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true
