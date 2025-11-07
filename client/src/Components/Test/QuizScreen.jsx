@@ -1,5 +1,4 @@
 import React from "react";
-
 export default function QuizScreen({
   q,
   currentQ,
@@ -63,14 +62,14 @@ export default function QuizScreen({
         <div className="mt-20 flex justify-between">
 
           {/* Previous only when NOT auto-skipped */}
-          {!autoSkipped && currentQ > 0 && (
+          {/* {!autoSkipped && currentQ > 0 && (
             <button
               onClick={() => setCurrentQ(currentQ - 1)}
               className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700"
             >
               Previous
             </button>
-          )}
+          )} */}
 
           <button
             onClick={handleNext}

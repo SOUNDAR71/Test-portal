@@ -3,6 +3,7 @@ import { WelcomeScreen, FinishedScreen } from "./Screen";
 import { fetchQuestions } from "./Questions";
 import QuizScreen from "./QuizScreen";
 import { useNavigate } from "react-router-dom";
+import {CalcutateScore} from "./CalcutateScore";
 
 const Test = () => {
   const navigate = useNavigate();
@@ -89,15 +90,6 @@ const Test = () => {
 };
 
 
-  // Calculate score
-  const calculateScore = () => {
-    let score = 0;
-    questions.forEach((q) => {
-      if (answers[q._id] === q.correct_option) score++;
-    });
-    return score;
-  };
-
   // Redirect after finish
   useEffect(() => {
     if (finished) {
@@ -110,7 +102,7 @@ const Test = () => {
   if (finished)
     return (
       <FinishedScreen
-        score={calculateScore()}
+        score={CalcutateScore()}
         total={questions.length}
         navigate={navigate}
       />
