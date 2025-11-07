@@ -16,13 +16,22 @@ const MONGO_URI = process.env.MONGO_URI;
 const JWT_SECRET = process.env.JWT_SECRET;
 
 // ------------------ MIDDLEWARE ------------------
-app.use(cors());
+app.use(cors({
+  origin: MONGO_URI,  
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true
+}));
+
 app.use(express.json());
 
 // ------------------ MONGODB CONNECTION ------------------
 const connectDB = async () => {
   try {
-    await mongoose.connect(MONGO_URI);
+    await mongoose.connect(MONGO_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
     console.log("MongoDB connected successfully");
   } catch (error) {
     console.error("MongoDB connection error:", error.message);
@@ -33,7 +42,7 @@ connectDB();
 
 // ------------------ HEALTH CHECK ------------------
 app.get("/", (req, res) => {
-  res.send(" Test Portal Backend is Running and MongoDB Connected!");
+  res.send("Test Portal Backend is Running and MongoDB Connected!");
 });
 
 // ------------------ REGISTER ROUTE ------------------
@@ -112,5 +121,5 @@ app.get("/mcq", requireAuth, (req, res) => {
 
 // ------------------ START SERVER ------------------
 app.listen(PORT, () => {
-  console.log(` Server running on port ${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
