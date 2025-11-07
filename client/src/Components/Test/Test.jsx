@@ -18,6 +18,12 @@ const Test = () => {
   useEffect(() => {
     fetchQuestions().then(setQuestions);
   }, []);
+  // Detect exit from fullscreen 
+  useEffect(() => { if (!started || finished) return; const handleFullscreenChange = () => { if (!document.fullscreenElement) { alert("You exited fullscreen! Test will be submitted."); setFinished(true); } }; 
+    document.addEventListener("fullscreenchange", handleFullscreenChange); return () => document.removeEventListener("fullscreenchange", handleFullscreenChange); }, [started, finished]);
+  // Detect tab switch 
+  useEffect(() => { if (!started || finished) return; const handleVisibilityChange = () => { if (document.hidden) { alert("You switched tabs! Test will be submitted."); setFinished(true); } };
+   document.addEventListener("visibilitychange", handleVisibilityChange); return () => document.removeEventListener("visibilitychange", handleVisibilityChange); }, [started, finished]);
 
   useEffect(() => {
     if (!started || finished) return;
