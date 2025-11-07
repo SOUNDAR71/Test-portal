@@ -11,8 +11,8 @@ const Test = () => {
   const [currentQ, setCurrentQ] = useState(0);
   const [finished, setFinished] = useState(false);
   const [started, setStarted] = useState(false);
-  const [timer, setTimer] = useState(60); 
-  const [autoSkippied, setAutoSkipped] = useState(false);
+  const [timer, setTimer] = useState(60);
+  const [autoSkipped, setAutoSkipped] = useState(false); // ✅ Correct spelling
 
   // Fetch questions from backend
   useEffect(() => {
@@ -24,62 +24,57 @@ const Test = () => {
   // Detect exit from fullscreen
   useEffect(() => {
     if (!started || finished) return;
-
     const handleFullscreenChange = () => {
       if (!document.fullscreenElement) {
         alert("You exited fullscreen! Test will be submitted.");
         setFinished(true);
       }
     };
-
     document.addEventListener("fullscreenchange", handleFullscreenChange);
-    return () => {
+    return () =>
       document.removeEventListener("fullscreenchange", handleFullscreenChange);
-    };
   }, [started, finished]);
 
   // Detect tab switch
   useEffect(() => {
     if (!started || finished) return;
-
     const handleVisibilityChange = () => {
       if (document.hidden) {
         alert("You switched tabs! Test will be submitted.");
         setFinished(true);
       }
     };
-
     document.addEventListener("visibilitychange", handleVisibilityChange);
-    return () => {
+    return () =>
       document.removeEventListener("visibilitychange", handleVisibilityChange);
-    };
   }, [started, finished]);
 
-  // Timer logic
+  // Timer logic per question
   useEffect(() => {
     if (!started || finished) return;
 
-    setTimer(60); // reset timer for each question
+    setTimer(60); 
+
     const interval = setInterval(() => {
-      setTimer((prev) => {
-        if (prev <= 1) {
-          setAutoSkipped(true);
-          handleNext();
-          return 60;
+      setTimer((prevTime) => {
+        if (prevTime <= 1) {
+          setAutoSkipped(true); 
+          handleNext(); 
+          return 60; 
         }
-        return prev - 1;
+        return prevTime - 1;
       });
     }, 1000);
 
     return () => clearInterval(interval);
   }, [currentQ, started, finished]);
 
-  // Handle answer selection
+  // Handle answer change
   const handleChange = (qId, value) => {
     setAnswers((prev) => ({ ...prev, [qId]: value }));
   };
 
-  // Next question
+  // Next question logic
   const handleNext = () => {
     setAutoSkipped(false);
     if (currentQ < questions.length - 1) {
@@ -93,12 +88,12 @@ const Test = () => {
   const calculateScore = () => {
     let score = 0;
     questions.forEach((q) => {
-      if (answers[q.id] === q.correct_option) score++;
+      if (answers[q._id] === q.correct_option) score++;
     });
     return score;
   };
 
-  // Redirect after finish (run only once)
+  // Redirect after finish
   useEffect(() => {
     if (finished) {
       const timeout = setTimeout(() => navigate("/"), 3000);
@@ -106,7 +101,6 @@ const Test = () => {
     }
   }, [finished, navigate]);
 
-  // Screens
   if (!started) return <WelcomeScreen setStarted={setStarted} />;
   if (finished)
     return (
@@ -121,23 +115,17 @@ const Test = () => {
   if (!q) return <div className="mt-10 top-10">Loading...</div>;
 
   return (
-    <div>
-      <div className="text-center font-bold text-lg mb-2">
-        Time left: {timer}s
-      </div>
-      <QuizScreen
-        q={q}
-        currentQ={currentQ}
-        questions={questions}
-        answers={answers}
-        handleChange={handleChange}
-        handleNext={handleNext}
-        setCurrentQ={setCurrentQ}
-        setFinished={setFinished}
-        autoSkippied={autoSkippied}
-        timer={timer}
-      />
-    </div>
+    <QuizScreen
+      q={q}
+      currentQ={currentQ}
+      questions={questions}
+      answers={answers}
+      handleChange={handleChange}
+      handleNext={handleNext}
+      setCurrentQ={setCurrentQ}
+      autoSkipped={autoSkipped} 
+      timer={timer}
+    />
   );
 };
 
