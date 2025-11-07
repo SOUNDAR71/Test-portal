@@ -11,12 +11,12 @@ const Test = () => {
   const [currentQ, setCurrentQ] = useState(0);
   const [finished, setFinished] = useState(false);
   const [started, setStarted] = useState(false);
-  const [timer, setTimer] = useState(60); // 1 min per question
+  const [timer, setTimer] = useState(60); 
+  const [autoSkippied, setAutoSkipped] = useState(false);
 
   // Fetch questions from backend
   useEffect(() => {
     fetchQuestions().then((data) => {
-      console.log(" Questions fetched from backend:", data);
       setQuestions(data);
     });
   }, []);
@@ -63,6 +63,7 @@ const Test = () => {
     const interval = setInterval(() => {
       setTimer((prev) => {
         if (prev <= 1) {
+          setAutoSkipped(true);
           handleNext();
           return 60;
         }
@@ -80,11 +81,12 @@ const Test = () => {
 
   // Next question
   const handleNext = () => {
+    setAutoSkipped(false);
     if (currentQ < questions.length - 1) {
       setCurrentQ((prev) => prev + 1);
     } else {
       setFinished(true);
-    }a
+    }
   };
 
   // Calculate score
@@ -116,7 +118,7 @@ const Test = () => {
     );
 
   const q = questions[currentQ];
-  if (!q) return <div>Loading...</div>;
+  if (!q) return <div className="mt-10 top-10">Loading...</div>;
 
   return (
     <div>
@@ -132,6 +134,8 @@ const Test = () => {
         handleNext={handleNext}
         setCurrentQ={setCurrentQ}
         setFinished={setFinished}
+        autoSkippied={autoSkippied}
+        timer={timer}
       />
     </div>
   );

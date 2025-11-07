@@ -1,7 +1,7 @@
 const calculateScore = () => {
   let score = 0;
 
-  console.log("🧠 START SCORE CALCULATION");
+  console.log("START SCORE CALCULATION");
   console.log("Questions:", questions);
   console.log("Answers:", answers);
 
@@ -16,13 +16,13 @@ const calculateScore = () => {
     console.log("   Selected:", selected);
 
     if (selected === correct) {
-      console.log("   ✅ Correct");
+      console.log(" Correct");
       score++;
     } else {
-      console.log("   ❌ Wrong");
+      console.log(" Wrong");
     }
   });
 
-  console.log("✅ Final Score:", score);
+  console.log(" Final Score:", score);
   return score;
 };

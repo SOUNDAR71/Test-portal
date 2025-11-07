@@ -8,12 +8,20 @@ export default function QuizScreen({
   handleChange,
   handleNext,
   setCurrentQ,
+  autoSkipped,
+  timer
 }) {
   return (
     <div className="min-h-screen w-full bg-gray-100 p-6 flex flex-col items-center justify-center">
       <h1 className="text-center text-3xl font-bold mb-6">MCQ Test</h1>
 
       <div className="w-full max-w-[1200px] min-h-[600px] p-6 bg-white rounded-lg shadow">
+        {/*Timer UI */}
+        <div className="mb-4 text-center">
+          <span className={`text-2xl font-bold px-4 py-2 rounded 
+            ${timer <= 10 ? "text-red-600 animate-pulse" : "text-green-700"}`}>Time Left: {timer}s
+          </span>
+        </div>
         {/* Question text */}
         <p className="font-semibold mt-10 mb-6 text-lg">
           {currentQ + 1}. {q.question}
@@ -44,13 +52,14 @@ export default function QuizScreen({
 
         {/* Previous + Next buttons */}
         <div className="mt-20 flex justify-between">
-          <button
+          {!autoSkipped && currentQ > 0 && (
+            <button
             onClick={() => setCurrentQ(currentQ - 1)}
             className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 disabled:bg-gray-400"
-            disabled={currentQ === 0}
-          >
-            Previous
-          </button>
+            disabled={currentQ === 0}>Previous
+           </button>
+          )}
+          
 
           <button
             onClick={handleNext}
