@@ -1,4 +1,5 @@
 import React from "react";
+
 export default function QuizScreen({
   q,
   currentQ,
@@ -16,39 +17,32 @@ export default function QuizScreen({
 
       <div className="w-full max-w-[1200px] min-h-[600px] p-6 bg-white rounded-lg shadow">
 
-        {/*Timer UI */}
         <div className="mb-4 text-center">
-          <span
-            className={`text-2xl font-bold px-4 py-2 rounded ${
-              timer <= 10 ? "text-red-600 animate-pulse" : "text-green-700"
-            }`}
-          >
+          <span className={`text-2xl font-bold px-4 py-2 rounded ${timer <= 10 ? "text-red-600 animate-pulse" : "text-green-700"}`}>
             Time Left: {timer}s
           </span>
         </div>
 
-        {/* Question */}
         <p className="font-semibold mt-10 mb-6 text-lg">
           {currentQ + 1}. {q.question}
         </p>
 
-        {/* Options */}
         <div className="grid grid-cols-1 gap-6 mt-10">
           {q.options.map((opt, index) => (
             <label
               key={index}
               className={`p-4 border rounded-lg cursor-pointer transition-all ${
-                answers[q._id] === opt
+                answers[q.id] === opt
                   ? "border-blue-600 bg-blue-100"
                   : "border-gray-300 hover:bg-gray-50"
               }`}
             >
               <input
                 type="radio"
-                name={`q${q._id}`}
+                name={`q${q.id}`}
                 value={opt}
-                checked={answers[q._id] === opt}
-                onChange={() => handleChange(q._id, opt)}
+                checked={answers[q.id] === opt}
+                onChange={() => handleChange(q.id, opt)}
                 className="hidden"
               />
               <span className="font-medium">
@@ -58,27 +52,14 @@ export default function QuizScreen({
           ))}
         </div>
 
-        {/* Navigation Buttons */}
-        <div className="mt-20 flex justify-between">
-
-          {/* Previous only when NOT auto-skipped */}
-          {/* {!autoSkipped && currentQ > 0 && (
-            <button
-              onClick={() => setCurrentQ(currentQ - 1)}
-              className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700"
-            >
-              Previous
-            </button>
-          )} */}
-
+        <div className="mt-20 flex justify-end">
           <button
             onClick={handleNext}
             className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 disabled:bg-gray-400"
-            disabled={!answers[q._id]}
+            disabled={!answers[q.id]}
           >
             {currentQ === questions.length - 1 ? "Finish" : "Next"}
           </button>
-
         </div>
       </div>
     </div>

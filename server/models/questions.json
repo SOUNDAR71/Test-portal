@@ -1,122 +1,52 @@
 [
   {
-    "id": "q1",
     "question": "Which data structure uses LIFO (Last In, First Out) principle?",
     "options": ["Stack", "Queue", "Array", "Tree"],
     "correct_option": "Stack"
   },
   {
-    "id": "q2",
     "question": "Which keyword is used to define a constant in JavaScript?",
     "options": ["const", "let", "var", "static"],
     "correct_option": "const"
   },
   {
-    "id": "q3",
     "question": "Which layer of the OSI model is responsible for routing?",
     "options": ["Network Layer", "Transport Layer", "Data Link Layer", "Physical Layer"],
     "correct_option": "Network Layer"
   },
   {
-    "id": "q4",
     "question": "What is the default port number for HTTP?",
     "options": ["80", "8080", "21", "443"],
     "correct_option": "80"
   },
   {
-    "id": "q5",
     "question": "Which HTML tag is used to define an internal stylesheet?",
     "options": ["<style>", "<css>", "<script>", "<link>"],
     "correct_option": "<style>"
   },
   {
-    "id": "q6",
     "question": "Which of the following is NOT a programming language?",
     "options": ["HTML", "Python", "C++", "Java"],
     "correct_option": "HTML"
   },
   {
-    "id": "q7",
     "question": "Which company developed the React library?",
     "options": ["Facebook", "Google", "Microsoft", "Amazon"],
     "correct_option": "Facebook"
   },
   {
-    "id": "q8",
     "question": "Which device converts digital signals to analog for transmission?",
     "options": ["Modem", "Router", "Switch", "Repeater"],
     "correct_option": "Modem"
   },
   {
-    "id": "q9",
     "question": "Which operator is used to compare both value and type in JavaScript?",
     "options": ["===", "==", "!=", "="],
     "correct_option": "==="
   },
   {
-    "id": "q10",
     "question": "Which command is used to initialize a new Git repository?",
     "options": ["git init", "git start", "git new", "git create"],
     "correct_option": "git init"
-  },
-  {
-    "id": "q11",
-    "question": "What is the full form of SQL?",
-    "options": ["Structured Query Language", "Strong Question Logic", "System Query Level", "Sequential Query Language"],
-    "correct_option": "Structured Query Language"
-  },
-  {
-    "id": "q12",
-    "question": "Which data type is immutable in Python?",
-    "options": ["Tuple", "List", "Dictionary", "Set"],
-    "correct_option": "Tuple"
-  },
-  {
-    "id": "q13",
-    "question": "In C language, which operator is used to get the address of a variable?",
-    "options": ["&", "*", "#", "%"],
-    "correct_option": "&"
-  },
-  {
-    "id": "q14",
-    "question": "Which protocol is used to send emails?",
-    "options": ["SMTP", "HTTP", "FTP", "SNMP"],
-    "correct_option": "SMTP"
-  },
-  {
-    "id": "q15",
-    "question": "Which component is used to convert AC to DC?",
-    "options": ["Rectifier", "Inverter", "Transformer", "Transducer"],
-    "correct_option": "Rectifier"
-  },
-  {
-    "id": "q16",
-    "question": "What does CSS stand for?",
-    "options": ["Cascading Style Sheets", "Computer Styled Sections", "Creative Styling System", "Colorful Style Setup"],
-    "correct_option": "Cascading Style Sheets"
-  },
-  {
-    "id": "q17",
-    "question": "Which keyword is used to prevent inheritance in Java?",
-    "options": ["final", "static", "private", "sealed"],
-    "correct_option": "final"
-  },
-  {
-    "id": "q18",
-    "question": "What is the main function of an operating system?",
-    "options": ["Manage hardware and software resources", "Compile programs", "Translate code", "Design applications"],
-    "correct_option": "Manage hardware and software resources"
-  },
-  {
-    "id": "q19",
-    "question": "Which symbol is used for single-line comments in JavaScript?",
-    "options": ["//", "/* */", "#", "<!-- -->"],
-    "correct_option": "//"
-  },
-  {
-    "id": "q20",
-    "question": "Which of the following is a NoSQL database?",
-    "options": ["MongoDB", "MySQL", "PostgreSQL", "SQLite"],
-    "correct_option": "MongoDB"
   }
 ]
