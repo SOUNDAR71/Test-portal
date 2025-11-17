@@ -83,7 +83,7 @@ const Test = () => {
     );
 
   const q = questions[currentQ];
-  if (!q) return <div>Loading...</div>;
+  if (!q) return <div className="min-h-screen flex flex-col items-center justify-center">Loading...</div>;
 
   return (
     <QuizScreen
