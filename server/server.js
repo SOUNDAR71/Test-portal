@@ -105,7 +105,7 @@ app.post("/login", async (req, res) => {
 });
 
 // ------------------ FETCH QUESTIONS ------------------
-app.get("/api/questions", async (req, res) => {
+app.get("/api/questions", requireAuth, async (req, res) => {
   try {
     const questions = await Questions.find();
     res.json(questions);
@@ -114,6 +114,7 @@ app.get("/api/questions", async (req, res) => {
     res.status(500).json({ error: "Server error" });
   }
 });
+
 
 // ------------------ PROTECTED ROUTE ------------------
 app.get("/mcq", requireAuth, (req, res) => {

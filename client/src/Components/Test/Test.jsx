@@ -4,6 +4,7 @@ import { fetchQuestions } from "./Questions";
 import QuizScreen from "./QuizScreen";
 import { useNavigate } from "react-router-dom";
 import { CalcutateScore } from "./CalcutateScore";
+import { fetchSecureData } from "../../api/api"; 
 
 const Test = () => {
   const navigate = useNavigate();
@@ -14,6 +15,15 @@ const Test = () => {
   const [started, setStarted] = useState(false);
   const [timer, setTimer] = useState(60);
   const [autoSkipped, setAutoSkipped] = useState(false);
+
+   useEffect(() => {
+    fetchSecureData()
+      .catch(() => {
+        alert("Session expired or unauthorized. Please Login again.");
+        localStorage.removeItem("token");
+        navigate("/login");
+      });
+  }, []);
 
   useEffect(() => {
     fetchQuestions().then(setQuestions);

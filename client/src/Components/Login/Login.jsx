@@ -49,7 +49,7 @@ const Login = () => {
   };
 
   return (
-    <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-50">
+    <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-gray-300 bg-opacity-100">
       <div className="w-[400px] bg-white rounded-lg shadow-lg p-8 fade-in">
         <h1 className="text-center font-bold text-2xl mb-4">Login</h1>
 
