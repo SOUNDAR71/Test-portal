@@ -43,7 +43,7 @@ connectDB();
 
 // ------------------ HEALTH CHECK ------------------
 app.get("/", (req, res) => {
-  res.send("Test Portal Backend is Running and MongoDB Connected!");
+  res.send("<h2 className=>Hiii</h2>");
 });
 
 // ------------------ REGISTER ROUTE ------------------
@@ -122,6 +122,6 @@ app.get("/mcq", requireAuth, (req, res) => {
 });
 
 // ------------------ START SERVER ------------------
-app.listen(PORT, () => {
+app.listen(PORT,"0.0.0.0", () => {
   console.log(`Server running on port ${PORT}`);
 });

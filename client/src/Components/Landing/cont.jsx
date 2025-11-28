@@ -37,7 +37,7 @@ const Cont = () => {
             <div className="bg-blue-500 w-12 h-12 flex items-center justify-center rounded mb-2">
               <span className="text-2xl">📊</span>
             </div>
-            <p className="mt-1 text-base md:text-lg font-semibold text-center">Advance Analytics</p>
+            <p className="mt-1 text-base md:text-lg font-semibold text-center">Advanced Analytics</p>
           </div>
           <div className="mt-2 text-xs sm:text-sm md:text-base text-gray-600 text-center">
             Get instant detailed results with performance insights and comprehensive question review.
