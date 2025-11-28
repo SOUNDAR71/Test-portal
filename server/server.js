@@ -1,3 +1,4 @@
+
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
@@ -43,7 +44,7 @@ connectDB();
 
 // ------------------ HEALTH CHECK ------------------
 app.get("/", (req, res) => {
-  res.send("<h2 className=>Hiii</h2>");
+  res.send("Test Portal Backend is Running and MongoDB Connected!");
 });
 
 // ------------------ REGISTER ROUTE ------------------
@@ -105,7 +106,7 @@ app.post("/login", async (req, res) => {
 });
 
 // ------------------ FETCH QUESTIONS ------------------
-app.get("/api/questions", requireAuth, async (req, res) => {
+app.get("/api/questions", async (req, res) => {
   try {
     const questions = await Questions.find();
     res.json(questions);
@@ -115,13 +116,12 @@ app.get("/api/questions", requireAuth, async (req, res) => {
   }
 });
 
-
 // ------------------ PROTECTED ROUTE ------------------
 app.get("/mcq", requireAuth, (req, res) => {
   res.json({ message: "You are logged in!", user: req.user });
 });
 
 // ------------------ START SERVER ------------------
-app.listen(PORT,"0.0.0.0", () => {
+app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
