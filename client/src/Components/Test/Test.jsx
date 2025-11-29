@@ -37,8 +37,10 @@ const Test = () => {
 
   useEffect(() => {
     if (!started || finished) return;
+    const QUESTION_TIME = 15; 
 
-    setTimer(60);
+    setTimer(QUESTION_TIME); 
+
 
     const interval = setInterval(() => {
       setTimer((t) => {
@@ -49,7 +51,7 @@ const Test = () => {
           } else {
             setFinished(true);
           }
-          return 60;
+          return QUESTION_TIME;
         }
         return t - 1;
       });
