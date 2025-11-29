@@ -7,13 +7,14 @@ import { CalcutateScore } from "./CalcutateScore";
 import { fetchSecureData } from "../../api/api"; 
 
 const Test = () => {
+  const QUESTION_TIME = 15; 
   const navigate = useNavigate();
   const [questions, setQuestions] = useState([]);
   const [answers, setAnswers] = useState({});
   const [currentQ, setCurrentQ] = useState(0);
   const [finished, setFinished] = useState(false);
   const [started, setStarted] = useState(false);
-  const [timer, setTimer] = useState(15);
+  const [timer, setTimer] = useState(QUESTION_TIME);
   const [autoSkipped, setAutoSkipped] = useState(false);
 
    useEffect(() => {
@@ -37,7 +38,6 @@ const Test = () => {
 
   useEffect(() => {
     if (!started || finished) return;
-    const QUESTION_TIME = 15; 
 
     setTimer(QUESTION_TIME); 
 
