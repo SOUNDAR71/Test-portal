@@ -13,7 +13,7 @@ const Test = () => {
   const [currentQ, setCurrentQ] = useState(0);
   const [finished, setFinished] = useState(false);
   const [started, setStarted] = useState(false);
-  const [timer, setTimer] = useState(60);
+  const [timer, setTimer] = useState(15);
   const [autoSkipped, setAutoSkipped] = useState(false);
 
    useEffect(() => {
